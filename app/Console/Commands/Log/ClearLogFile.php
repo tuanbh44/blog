@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Log;
 
 use Illuminate\Console\Command;
+use Carbon\Carbon;
 
 class ClearLogFile extends Command
 {
@@ -37,7 +38,8 @@ class ClearLogFile extends Command
      */
     public function handle()
     {
-        exec('echo "" > ' . storage_path('logs/laravel.log'));
+        $today = Carbon::now();
+        exec('echo "" > ' . storage_path('logs/laravel-'.$today->toDateString().'.log'));
         $this->info('Logs have been cleared');
     }
 }
